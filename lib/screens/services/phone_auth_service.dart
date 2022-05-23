@@ -7,20 +7,23 @@ import 'package:phoneotp/screens/otp_screen.dart';
 class PhoneAuthService {
   FirebaseAuth auth = FirebaseAuth.instance;
   User? user = FirebaseAuth.instance.currentUser;
+
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-  Future<void> addUser(context) {
-    // Call the user's CollectionReference to add a new user
-    return users
-        .add({
-          'uid': user?.uid, 
-          'mobile': user?.phoneNumber, 
-          'email': user?.email,
-        })
-        .then((value){
-          Navigator.pushReplacementNamed(context, LocationScreen.id);
-        })
-        .catchError((error) => print("Failed to add user: $error"));
+  Future<void> addUser(context, String uid, String? phoneNumber) async {
+    final QuerySnapshot result = await users.where('uid', isEqualTo: uid).get();
+    List<DocumentSnapshot> document = result.docs;
+    if (document.length > 0) {
+      Navigator.pushReplacementNamed(context, LocationScreen.id);
+    } else {
+      return users.doc(uid).set({
+        'uid': uid,
+        'mobile': user?.phoneNumber,
+        'email': user?.email,
+      }).then((value) {
+        Navigator.pushReplacementNamed(context, LocationScreen.id);
+      }).catchError((error) => print("Failed to add user: $error"));
+    }
   }
 
   Future<void> verifyPhoneNumber(BuildContext context, number) async {
@@ -37,6 +40,7 @@ class PhoneAuthService {
       print('The error is ${e.code}');
     };
 
+    // ignore: prefer_function_declarations_over_variables
     final PhoneCodeSent codeSent = (String verId, int? resendToken) async {
       Navigator.of(context).push(
         MaterialPageRoute(

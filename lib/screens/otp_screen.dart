@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:phoneotp/screens/location_screen.dart';
 import 'package:phoneotp/screens/phone_auth_screen.dart';
+import 'package:phoneotp/screens/services/phone_auth_service.dart';
 
 class OTPScreen extends StatefulWidget {
   final String number, verId;
@@ -15,15 +15,14 @@ class OTPScreen extends StatefulWidget {
 class _OTPScreenState extends State<OTPScreen> {
   String error = '';
   bool _loading = false;
+  final PhoneAuthService _service = PhoneAuthService();
 
-  
-
-  var _text1 = TextEditingController();
-  var _text2 = TextEditingController();
-  var _text3 = TextEditingController();
-  var _text4 = TextEditingController();
-  var _text5 = TextEditingController();
-  var _text6 = TextEditingController();
+  final _text1 = TextEditingController();
+  final _text2 = TextEditingController();
+  final _text3 = TextEditingController();
+  final _text4 = TextEditingController();
+  final _text5 = TextEditingController();
+  final _text6 = TextEditingController();
 
   Future<void> phoneCredential(BuildContext context, String otp) async {
     FirebaseAuth _auth = FirebaseAuth.instance;
@@ -34,7 +33,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
       final User? user = (await _auth.signInWithCredential(credential)).user;
       if (user != null) {
-        Navigator.pushReplacementNamed(context, LocationScreen.id);
+        _service.addUser(context,user.uid,user.phoneNumber);
       } else {
         print('login failed');
         setState(() {
@@ -43,7 +42,7 @@ class _OTPScreenState extends State<OTPScreen> {
       }
     } catch (e) {
       print(e.toString());
-      if(mounted){
+      if (mounted) {
         setState(() {
           error = 'Invalid Otp';
         });
@@ -252,9 +251,13 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 18,),
-              Text(error,style: TextStyle(color: Colors.red,fontSize: 12),)
-
+            SizedBox(
+              height: 18,
+            ),
+            Text(
+              error,
+              style: TextStyle(color: Colors.red, fontSize: 12),
+            )
           ],
         ),
       ),

@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "860285603804",
-    "project_id": "phone-otp-with-firebase",
-    "storage_bucket": "phone-otp-with-firebase.appspot.com"
+    "project_number": "481035469664",
+    "project_id": "ki-nilam",
+    "storage_bucket": "ki-nilam.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:860285603804:android:dbb0fec86b5cce2c070919",
+        "mobilesdk_app_id": "1:481035469664:android:58e5c42315209e77b19405",
         "android_client_info": {
           "package_name": "com.example.phoneotp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "860285603804-rjnekdejns7bn07o2h5ve4b0q0msctlr.apps.googleusercontent.com",
+          "client_id": "481035469664-0bod2vvj4cn66k1foupv6re8t0ia2198.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.phoneotp",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "860285603804-seb0629aa0iiblprduu4r163eb0cnk3h.apps.googleusercontent.com",
+          "client_id": "481035469664-80j255je05jh7ut6it6emt5e6cs7m4ph.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD3gbqwhavt_PlbqMduCV7rqg6RQxPOTEo"
+          "current_key": "AIzaSyDAV2UIyx4fFQAKvrVs5W3bQF7Gh1jXLOw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "860285603804-seb0629aa0iiblprduu4r163eb0cnk3h.apps.googleusercontent.com",
+              "client_id": "481035469664-80j255je05jh7ut6it6emt5e6cs7m4ph.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

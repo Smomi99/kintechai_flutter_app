@@ -1,4 +1,4 @@
-import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:legacy_progress_dialog/legacy_progress_dialog.dart';
 import 'package:phoneotp/screens/services/phone_auth_service.dart';
@@ -13,12 +13,10 @@ class PhoneAuthScreen extends StatefulWidget {
 }
 
 class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
-  String dialCodeDigits = "+88";
-  final TextEditingController _controller = TextEditingController();
-  phoneAuthentication(number) {
-    print(number);
-  }
-
+  bool validate = false;
+  var countryCodeController = TextEditingController(text: '+88');
+  var phoneNumberController = TextEditingController();
+  
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: Row(children: [
@@ -44,133 +42,125 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/kingdom-sign-in.gif',
-                width: 380,
-                fit: BoxFit.cover,
+      appBar: AppBar(
+        elevation: 1,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Login',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.red.shade200,
+              child: Icon(
+                CupertinoIcons.person_alt_circle,
+                color: Colors.red,
+                size: 60,
               ),
-              const SizedBox(
-                height: 1,
-              ),
-              FadeInDown(
-                child: const Text(
-                  'register',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                ),
-              ),
-              FadeInDown(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Text(
-                    "Enter your phone number to continue , we will send you OTP to verify",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey.shade700),
-                  ),
-                ),
-              ),
-              FadeInDown(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                          // ignore: use_full_hex_values_for_flutter_colors
-                          color: Color(0xffeeeeeee),
-                          blurRadius: 10,
-                          offset: Offset(0, 4))
-                    ],
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(
-                              top: 10, right: 10, left: 10),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              hintText: "Phone Number",
-                              prefix: Padding(
-                                padding: const EdgeInsets.all(4),
-                                child: Text(dialCodeDigits),
-                              ),
-                            ),
-                            maxLength: 12,
-                            keyboardType: TextInputType.number,
-                            controller: _controller,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 80,
-              ),
-              FadeInDown(
-                child: MaterialButton(
-                  onPressed: () {
-                    ProgressDialog progressDialog = ProgressDialog(
-                      context: context,
-                      backgroundColor: Colors.blue,
-                      textColor: Colors.white,
-                    );
-
-                    progressDialog.show();
-                    Future.delayed(Duration(seconds: 3))
-                        .then((value) => progressDialog.dismiss());
-
-                    String number = '$dialCodeDigits${_controller.text}';
-                    _service.verifyPhoneNumber(context, number);
-                  },
-                  color: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                  minWidth: double.infinity,
-                  child: const Text(
-                    "Request Otp",
-                    style: TextStyle(
-                      color: Colors.white,
+            ),
+            SizedBox(
+              height: 12,
+            ),
+            Text(
+              'Enter your phone number',
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'We will send confirmation code to your phone',
+              style: TextStyle(color: Colors.grey),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: TextFormField(
+                    controller: countryCodeController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      counterText: '11',
+                      labelText: 'Country',
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              FadeInDown(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have a account?",
-                    style: TextStyle(
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed('/');
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 3,
+                  child: TextFormField(
+                    onChanged: (value) {
+                      if (value.length == 11) {
+                        setState(() {
+                          validate = true;
+                        });
+                      }
+                      if (value.length == 10) {
+                        setState(() {
+                          validate = false;
+                        });
+                      }
                     },
-                    child: const Text("login"),
+                    autofocus: true,
+                    maxLength: 11,
+                    keyboardType: TextInputType.phone,
+                    controller: phoneNumberController,
+                    decoration: InputDecoration(
+                      labelText: 'Number',
+                      hintText: "Enter your phone number",
+                      hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+                    ),
                   ),
-                ],
-              )),
-            ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: AbsorbPointer(
+            absorbing: validate ? false : true,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: validate
+                    ? MaterialStateProperty.all(Theme.of(context).primaryColor)
+                    : MaterialStateProperty.all(Colors.grey),
+              ),
+              onPressed: () {
+                String number =
+                    '${countryCodeController.text}${phoneNumberController.text}';
+                ProgressDialog progressDialog = ProgressDialog(
+                  context: context,
+                  backgroundColor: Colors.blue,
+                  textColor: Colors.white,
+                );
+
+                progressDialog.show();
+                Future.delayed(Duration(seconds: 3))
+                    .then((value) => progressDialog.dismiss());
+
+                _service.verifyPhoneNumber(context, number);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  'Verify OTP',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
           ),
         ),
       ),

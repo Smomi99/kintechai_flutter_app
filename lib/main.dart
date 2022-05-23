@@ -18,18 +18,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner:false,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.cyan.shade900,
         fontFamily: 'Lato',
       ),
       initialRoute: SplashScreen.id,
-       routes: {
-              SplashScreen.id: (context) => SplashScreen(),
-              LoginScreen.id: (context) => LoginScreen(),
-              PhoneAuthScreen.id: (context) => PhoneAuthScreen(),
-              LocationScreen.id: (context) => LocationScreen(),
-            },
+      routes: {
+        SplashScreen.id: (context) => SplashScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+        PhoneAuthScreen.id: (context) => PhoneAuthScreen(),
+        LocationScreen.id: (context) => LocationScreen(),
+      },
     );
   }
 }
