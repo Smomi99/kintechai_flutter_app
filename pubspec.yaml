@@ -31,6 +31,11 @@ dependencies:
   flutter_signin_button: ^2.0.0
   flutter_beep: ^1.0.0
   legacy_progress_dialog: ^0.1.2
+  location: ^4.4.0
+  csc_picker: ^0.2.6
+  geocoder_flutter: ^0.2.3-prerelease
+  
+
 
 dev_dependencies:
   flutter_test:
