@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:phoneotp/screens/auth_ui.dart';
+import 'package:phoneotp/widget/auth_ui.dart';
 import 'package:phoneotp/screens/location_screen.dart';
 
 class LoginScreen extends StatelessWidget {

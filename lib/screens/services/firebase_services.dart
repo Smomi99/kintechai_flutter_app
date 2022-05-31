@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:geocoder_flutter/geocoder.dart';
 import 'package:phoneotp/screens/home_page_screen.dart';
 
 class FirebaseService {
@@ -20,5 +20,15 @@ class FirebaseService {
         ),
       );
     });
+  }
+
+  Future<String?> getAddress(lat, long) async {
+    final coordinates = new Coordinates(lat, long);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+
+    var first = addresses.first;
+
+    return first.addressLine; 
   }
 }

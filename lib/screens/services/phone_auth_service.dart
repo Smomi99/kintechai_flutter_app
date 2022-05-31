@@ -10,8 +10,11 @@ class PhoneAuthService {
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
-  Future<void> addUser(context, String uid, String? phoneNumber) async {
-    final QuerySnapshot result = await users.where('uid', isEqualTo: uid).get();
+  Future<void> addUser(
+    context,
+    String uid,
+  ) async {
+    final QuerySnapshot result = await users.where('uid', isEqualTo: user?.uid).get();
     List<DocumentSnapshot> document = result.docs;
     if (document.length > 0) {
       Navigator.pushReplacementNamed(context, LocationScreen.id);

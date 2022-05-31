@@ -32,9 +32,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         PhoneAuthScreen.id: (context) => PhoneAuthScreen(),
         LocationScreen.id: (context) => LocationScreen(),
-        HomePageScreen.id: (context) => HomePageScreen(
-              locationData: locationData,
-            )
+        HomePageScreen.id: (context) => HomePageScreen(),
       },
     );
   }

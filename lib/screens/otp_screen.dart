@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +35,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
       final User? user = (await _auth.signInWithCredential(credential)).user;
       if (user != null) {
-        _service.addUser(context,user.uid,user.phoneNumber);
+        _service.addUser(context, user.uid);
       } else {
         print('login failed');
         setState(() {
