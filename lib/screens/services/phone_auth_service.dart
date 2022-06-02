@@ -13,15 +13,16 @@ class PhoneAuthService {
   Future<void> addUser(
     context,
     String uid,
+    String? phoneNumber,
   ) async {
-    final QuerySnapshot result = await users.where('uid', isEqualTo: user?.uid).get();
+    final QuerySnapshot result = await users.where('uid', isEqualTo: uid).get();
     List<DocumentSnapshot> document = result.docs;
-    if (document.length > 0) {
+    if (document.isNotEmpty) {
       Navigator.pushReplacementNamed(context, LocationScreen.id);
     } else {
       return users.doc(uid).set({
         'uid': uid,
-        'mobile': user?.phoneNumber,
+        'mobile': phoneNumber,
         'email': user?.email,
       }).then((value) {
         Navigator.pushReplacementNamed(context, LocationScreen.id);

@@ -5,8 +5,10 @@ import 'package:geocoder_flutter/geocoder.dart';
 import 'package:phoneotp/screens/home_page_screen.dart';
 
 class FirebaseService {
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
   User? user = FirebaseAuth.instance.currentUser;
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference categories = FirebaseFirestore.instance.collection('categories');
 
   Future<void> updateUser(Map<String, dynamic> data, context) {
     return users.doc(user?.uid).update(data).then(

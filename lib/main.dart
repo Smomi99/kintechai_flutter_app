@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:phoneotp/screens/categories/category_list.dart';
+import 'package:phoneotp/screens/categories/subcat_screen.dart';
 import 'package:phoneotp/screens/home_page_screen.dart';
 import 'package:phoneotp/screens/location_screen.dart';
 import 'package:phoneotp/screens/login_screen.dart';
@@ -14,10 +16,9 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({Key? key}) : super(key: key);
-
-  get locationData => null;
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,8 +32,10 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (context) => SplashScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         PhoneAuthScreen.id: (context) => PhoneAuthScreen(),
-        LocationScreen.id: (context) => LocationScreen(),
+        LocationScreen.id: (context) => LocationScreen(locationChanging: true,),
         HomePageScreen.id: (context) => HomePageScreen(),
+        CategoryListScreen.id: (context) => CategoryListScreen(),
+        SubCatList.id: (context) => SubCatList(),
       },
     );
   }
@@ -63,3 +66,4 @@ class MyApp extends StatelessWidget {
 //         }
 //       },
 //     );
+

@@ -35,7 +35,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
       final User? user = (await _auth.signInWithCredential(credential)).user;
       if (user != null) {
-        _service.addUser(context, user.uid);
+        _service.addUser(context, user.uid, user.phoneNumber);
       } else {
         print('login failed');
         setState(() {

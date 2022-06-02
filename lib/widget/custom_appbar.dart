@@ -25,16 +25,16 @@ class CustomAppBar extends StatelessWidget {
               snapshot.data!.data() as Map<String, dynamic>;
           if (data['address'] == null) {
             GeoPoint latlong = data['location'];
-              _service
-                  .getAddress(latlong.latitude, latlong.longitude)
-                  .then((adres) {
-                return appBar(adres, context);
-              });
+            _service
+                .getAddress(latlong.latitude, latlong.longitude)
+                .then((adres) {
+              return appBar(adres, context);
+            });
           } else {
             return appBar(data['address'], context);
           }
         }
-        return Text("Fetching location...");
+        return appBar('Fetching location', context);
       },
     );
   }
@@ -43,27 +43,31 @@ class CustomAppBar extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.white,
       elevation: 0.0,
+      automaticallyImplyLeading: false,
       title: InkWell(
         onTap: () {
-          Navigator.pushNamed(context, LocationScreen.id);
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => LocationScreen(locationChanging: true,)));
         },
         child: Container(
           width: MediaQuery.of(context).size.width,
           child: Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(
                   CupertinoIcons.location_solid,
                   color: Colors.black,
                   size: 18,
                 ),
-                Text(
-                  address,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Text(
+                    address,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Icon(
