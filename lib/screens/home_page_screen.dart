@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
-import 'package:phoneotp/screens/login_screen.dart';
+
 import 'package:phoneotp/widget/banner_widget.dart';
 import 'package:phoneotp/widget/category_widget.dart';
 import 'package:phoneotp/widget/custom_appbar.dart';
@@ -18,6 +18,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(56),
         child: SafeArea(

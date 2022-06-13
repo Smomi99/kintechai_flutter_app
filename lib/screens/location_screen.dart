@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:geocoder_flutter/geocoder.dart';
 import 'package:legacy_progress_dialog/legacy_progress_dialog.dart';
 import 'package:location/location.dart';
-import 'package:phoneotp/screens/home_page_screen.dart';
 import 'package:phoneotp/screens/login_screen.dart';
+import 'package:phoneotp/screens/main_screen.dart';
 import 'package:phoneotp/screens/services/firebase_services.dart';
 
 class LocationScreen extends StatefulWidget {
@@ -71,6 +71,7 @@ class _LocationScreenState extends State<LocationScreen> {
   @override
   Widget build(BuildContext context) {
     //fetching location from firestore
+    // ignore: unnecessary_null_comparison
     if (widget.locationChanging == null) {
       _service.users
           .doc(_service.user?.uid)
@@ -78,10 +79,12 @@ class _LocationScreenState extends State<LocationScreen> {
           .then((DocumentSnapshot document) {
         if (document.exists) {
           if (document['address'] != null) {
-            setState(() {
-              _loading = true;
-            });
-            Navigator.pushReplacementNamed(context, HomePageScreen.id);
+            if (mounted) {
+              setState(() {
+                _loading = true;
+              });
+              Navigator.pushReplacementNamed(context, MainScreen.id);
+            }
           } else {
             setState(() {
               _loading = false;
@@ -172,7 +175,7 @@ class _LocationScreenState extends State<LocationScreen> {
                               'address': _address
                             }, context).then((value) {
                               progressDialog.dismiss();
-                              Navigator.pushNamed(context, HomePageScreen.id);
+                              Navigator.pushNamed(context, MainScreen.id);
                             });
                           }
                         });
