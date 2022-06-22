@@ -13,8 +13,9 @@ import 'package:phoneotp/screens/services/firebase_services.dart';
 
 class LocationScreen extends StatefulWidget {
   static const String id = 'location-screen';
-  final bool locationChanging;
-  LocationScreen({required this.locationChanging});
+  final String popScreen;
+  // ignore: use_key_in_widget_constructors
+  const LocationScreen({required this.popScreen});
 
   @override
   State<LocationScreen> createState() => _LocationScreenState();
@@ -73,7 +74,7 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     //fetching location from firestore
     // ignore: unnecessary_null_comparison
-    if (widget.locationChanging == null) {
+    if (widget.popScreen == null) {
       _service.users
           .doc(_service.user?.uid)
           .get()
@@ -174,10 +175,10 @@ class _LocationScreenState extends State<LocationScreen> {
                               'location':
                                   GeoPoint(value.latitude!, value.longitude!),
                               'address': _address
-                            }, context).then((value) {
+                            }, context, widget.popScreen).then((value) {
                               progressDialog.dismiss();
-                              return Navigator.pushNamed(
-                                  context, MainScreen.id);
+                              // return Navigator.pushNamed(
+                              //     context, widget.popScreen);
                             });
                           }
                         });
@@ -242,7 +243,7 @@ class _LocationScreenState extends State<LocationScreen> {
                               'state': stateValue,
                               'city': cityValue,
                               'country': countryValue
-                            }, context);
+                            }, context, widget.popScreen);
                           }
                         },
                       ),
@@ -333,7 +334,7 @@ class _LocationScreenState extends State<LocationScreen> {
                                             'location': GeoPoint(
                                                 value.latitude!,
                                                 value.longitude!)
-                                          }, context);
+                                          }, context, widget.popScreen);
                                         }
                                       });
                                     },

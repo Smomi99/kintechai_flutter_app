@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:phoneotp/forms/forms_screen.dart';
 import 'package:phoneotp/forms/seller_car_form.dart';
 import 'package:phoneotp/forms/user_review_screen.dart';
 import 'package:phoneotp/provider/cat_provider.dart';
@@ -41,8 +42,8 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => LoginScreen(),
         PhoneAuthScreen.id: (context) => PhoneAuthScreen(),
         LocationScreen.id: (context) => LocationScreen(
-              locationChanging: true,
-            ), 
+              popScreen: MainScreen.id,
+            ),
         MainScreen.id: (context) => MainScreen(),
         CategoryListScreen.id: (context) => CategoryListScreen(),
         SubCatList.id: (context) => SubCatList(),
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         SellerCategory.id: (context) => SellerCategory(),
         SellerCarForm.id: (context) => SellerCarForm(),
         UserReviewScreen.id: (context) => UserReviewScreen(),
+        FormScreen.id: (context) => FormScreen(),
       },
     );
   }

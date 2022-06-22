@@ -4,9 +4,9 @@ import 'package:phoneotp/screens/services/firebase_services.dart';
 
 class CategoryProvider with ChangeNotifier {
   final FirebaseService _service = FirebaseService();
-   DocumentSnapshot? doc;
-   DocumentSnapshot? userDetails;
-   String? selectedCategory;
+  DocumentSnapshot? doc;
+  DocumentSnapshot? userDetails;
+  String? selectedCategory;
   String? selectedSubCat;
   List<String> urlList = [];
   Map<String, dynamic> dataToFirestore = {};
@@ -16,6 +16,7 @@ class CategoryProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
   getSubCategory(selectedsubCat) {
     selectedSubCat = selectedsubCat;
 
@@ -42,6 +43,12 @@ class CategoryProvider with ChangeNotifier {
       this.userDetails = value;
       notifyListeners();
     });
+  }
+
+  clearData() {
+    this.urlList = [];
+    dataToFirestore = {};
+    notifyListeners();
   }
 
   // void getImage() {

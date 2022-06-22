@@ -1,12 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:phoneotp/forms/forms_screen.dart';
+import 'package:phoneotp/provider/cat_provider.dart';
 import 'package:phoneotp/screens/services/firebase_services.dart';
+import 'package:provider/provider.dart';
 
 class SellerSubCatList extends StatelessWidget {
   static const String id = 'sellerSubCat-screen';
   @override
   Widget build(BuildContext context) {
     FirebaseService _service = FirebaseService();
+    var _catProvider = Provider.of<CategoryProvider>(context);
 
     DocumentSnapshot args =
         ModalRoute.of(context)!.settings.arguments as DocumentSnapshot;
@@ -43,7 +47,11 @@ class SellerSubCatList extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.only(left: 12, right: 8),
                     child: ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        _catProvider.getSubCategory(data[index]);
+
+                        Navigator.pushNamed(context, FormScreen.id);
+                      },
                       title: Text(data[index],
                           style: TextStyle(fontWeight: FontWeight.bold)),
                     ),

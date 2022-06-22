@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Timer(
         Duration(
-          seconds: 3,
+          seconds: 5,
         ), () {
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         if (user == null) {

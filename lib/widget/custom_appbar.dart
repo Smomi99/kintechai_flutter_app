@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:phoneotp/screens/location_screen.dart';
+import 'package:phoneotp/screens/main_screen.dart';
 import 'package:phoneotp/screens/services/firebase_services.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -46,7 +47,12 @@ class CustomAppBar extends StatelessWidget {
       automaticallyImplyLeading: false,
       title: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => LocationScreen(locationChanging: true,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => LocationScreen(
+                        popScreen: MainScreen.id,
+                      )));
         },
         child: Container(
           width: MediaQuery.of(context).size.width,

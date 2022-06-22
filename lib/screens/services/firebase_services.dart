@@ -14,10 +14,10 @@ class FirebaseService {
   CollectionReference products =
       FirebaseFirestore.instance.collection('products');
 
-  Future<void> updateUser(Map<String, dynamic> data, context) {
+  Future<void> updateUser(Map<String, dynamic> data, context,screen) {
     return users.doc(user?.uid).update(data).then(
       (value) {
-        Navigator.pushNamed(context, MainScreen.id);
+        Navigator.pushNamed(context, screen);
       },
     ).catchError((error) {
       ScaffoldMessenger.of(context).showSnackBar(

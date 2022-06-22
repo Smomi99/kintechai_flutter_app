@@ -265,6 +265,9 @@ class _SellerCarFormState extends State<SellerCarForm> {
                       if (value!.isEmpty) {
                         return 'Please completed the required file';
                       }
+                      if (value.length < 5) {
+                        return 'Required minimum price';
+                      }
                       return null;
                     },
                   ),
