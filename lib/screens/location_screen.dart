@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoder_flutter/geocoder.dart';
 import 'package:legacy_progress_dialog/legacy_progress_dialog.dart';
 import 'package:location/location.dart';
+import 'package:phoneotp/screens/home_page_screen.dart';
 import 'package:phoneotp/screens/login_screen.dart';
 import 'package:phoneotp/screens/main_screen.dart';
 import 'package:phoneotp/screens/services/firebase_services.dart';
@@ -175,7 +176,8 @@ class _LocationScreenState extends State<LocationScreen> {
                               'address': _address
                             }, context).then((value) {
                               progressDialog.dismiss();
-                              Navigator.pushNamed(context, MainScreen.id);
+                              return Navigator.pushNamed(
+                                  context, MainScreen.id);
                             });
                           }
                         });

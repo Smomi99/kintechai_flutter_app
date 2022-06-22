@@ -11,6 +11,8 @@ class FirebaseService {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   CollectionReference categories =
       FirebaseFirestore.instance.collection('categories');
+  CollectionReference products =
+      FirebaseFirestore.instance.collection('products');
 
   Future<void> updateUser(Map<String, dynamic> data, context) {
     return users.doc(user?.uid).update(data).then(

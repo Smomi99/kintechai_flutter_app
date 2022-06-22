@@ -1,10 +1,11 @@
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:galleryimage/galleryimage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:phoneotp/provider/cat_provider.dart';
+import 'package:provider/provider.dart';
 
 class ImagePickerWidget extends StatefulWidget {
   const ImagePickerWidget({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class ImagePickerWidget extends StatefulWidget {
 class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   File? _image;
   bool _uploading = false;
-  final _picker = ImagePicker();
+  final ImagePicker _picker = ImagePicker();
 
   Future<void> getImage() async {
     // ignore: prefer_typing_uninitialized_variables
@@ -47,6 +48,8 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var _provider = Provider.of<CategoryProvider>(context);
+
     Future<String?> uploadFile() async {
       File file = File(_image!.path);
       String imageName =
@@ -57,11 +60,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
         downloadUrl =
             await FirebaseStorage.instance.ref(imageName).getDownloadURL();
-
+        // ignore: unnecessary_null_comparison
         if (downloadUrl != null) {
           setState(() {
             _image = null;
-            print(downloadUrl);
+            _provider.getImages(downloadUrl);
           });
         }
       } on FirebaseException catch (e) {
@@ -74,23 +77,24 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
       return downloadUrl;
     }
 
-    List<String> listOfUrls = [
-      "https://cosmosmagazine.com/wp-content/uploads/2020/02/191010_nature.jpg",
-      "https://scx2.b-cdn.net/gfx/news/hires/2019/2-nature.jpg",
-      "https://isha.sadhguru.org/blog/wp-content/uploads/2016/05/natures-temples.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
-      "https://s23574.pcdn.co/wp-content/uploads/Singular-1140x703.jpg",
-      "https://www.expatica.com/app/uploads/sites/9/2017/06/Lake-Oeschinen-1200x675.jpg",
-    ];
+    // List<String> listOfUrls = [
+    //   "https://cosmosmagazine.com/wp-content/uploads/2020/02/191010_nature.jpg",
+    //   "https://scx2.b-cdn.net/gfx/news/hires/2019/2-nature.jpg",
+    //   "https://isha.sadhguru.org/blog/wp-content/uploads/2016/05/natures-temples.jpg",
+    //   "https://upload.wikimedia.org/wikipedia/commons/7/77/Big_Nature_%28155420955%29.jpeg",
+    //   "https://s23574.pcdn.co/wp-content/uploads/Singular-1140x703.jpg",
+    //   "https://www.expatica.com/app/uploads/sites/9/2017/06/Lake-Oeschinen-1200x675.jpg",
+    // ];
 
     return Dialog(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           AppBar(
             elevation: 1,
             backgroundColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.black),
-            title: Text(
+            iconTheme: const IconThemeData(color: Colors.black),
+            title: const Text(
               'Upload images',
               style: TextStyle(color: Colors.black),
             ),
@@ -99,7 +103,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Stack(
@@ -113,14 +117,14 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                                 _image = null;
                               });
                             },
-                            icon: Icon(Icons.clear)),
+                            icon: const Icon(Icons.clear)),
                       ),
-                    Container(
+                    SizedBox(
                       height: 140,
                       width: MediaQuery.of(context).size.width,
                       child: FittedBox(
                         child: _image == null
-                            ? Icon(
+                            ? const Icon(
                                 CupertinoIcons.photo_on_rectangle,
                                 color: Colors.grey,
                               )
@@ -129,16 +133,21 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Container(
-                  child: GalleryImage(
-                    imageUrls: listOfUrls,
-                    numOfShowImages: 4,
+                if (_provider.urlList.isNotEmpty)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: GalleryImage(
+                      imageUrls: _provider.urlList,
+                      numOfShowImages: _provider.urlList.length,
+                    ),
                   ),
-                ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 if (_image != null)
@@ -146,10 +155,11 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                     children: [
                       Expanded(
                         child: NeumorphicButton(
-                          style: NeumorphicStyle(color: Colors.green),
+                          style: const NeumorphicStyle(color: Colors.green),
                           onPressed: () {
                             setState(() {
                               _uploading = true;
+
                               uploadFile().then((url) {
                                 if (url != null) {
                                   setState(() {
@@ -165,14 +175,14 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Expanded(
                         child: NeumorphicButton(
-                          style: NeumorphicStyle(color: Colors.red),
+                          style: const NeumorphicStyle(color: Colors.red),
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             'Cancel',
                             textAlign: TextAlign.center,
                           ),
@@ -180,7 +190,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       ),
                     ],
                   ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
@@ -191,14 +201,16 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
                       style: NeumorphicStyle(
                           color: Theme.of(context).primaryColor),
                       child: Text(
-                        'Upload image',
+                        _provider.urlList.isNotEmpty
+                            ? 'Upload more images'
+                            : 'Upload image',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     )),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 if (_uploading)

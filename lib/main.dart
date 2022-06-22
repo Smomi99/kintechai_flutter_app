@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:phoneotp/forms/seller_car_form.dart';
+import 'package:phoneotp/forms/user_review_screen.dart';
 import 'package:phoneotp/provider/cat_provider.dart';
 import 'package:phoneotp/screens/categories/category_list.dart';
 import 'package:phoneotp/screens/categories/subcat_screen.dart';
@@ -41,13 +42,14 @@ class MyApp extends StatelessWidget {
         PhoneAuthScreen.id: (context) => PhoneAuthScreen(),
         LocationScreen.id: (context) => LocationScreen(
               locationChanging: true,
-            ),
+            ), 
         MainScreen.id: (context) => MainScreen(),
         CategoryListScreen.id: (context) => CategoryListScreen(),
         SubCatList.id: (context) => SubCatList(),
         SellerSubCatList.id: (context) => SellerSubCatList(),
         SellerCategory.id: (context) => SellerCategory(),
         SellerCarForm.id: (context) => SellerCarForm(),
+        UserReviewScreen.id: (context) => UserReviewScreen(),
       },
     );
   }
