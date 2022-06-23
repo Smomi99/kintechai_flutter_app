@@ -54,9 +54,10 @@ class SellerCategory extends StatelessWidget {
                         _catProvider.getCatSnapshot(doc);
                         if (doc['subCat'] == null) {
                           Navigator.pushNamed(context, SellerCarForm.id);
+                        } else {
+                          Navigator.pushNamed(context, SellerSubCatList.id,
+                              arguments: doc);
                         }
-                        // Navigator.pushNamed(context, SellerSubCatList.id,
-                        //     arguments: doc);
                       },
                       leading: Image.network(
                         doc!['image'],

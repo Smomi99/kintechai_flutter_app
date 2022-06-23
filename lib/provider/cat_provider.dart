@@ -18,7 +18,7 @@ class CategoryProvider with ChangeNotifier {
   }
 
   getSubCategory(selectedsubCat) {
-    selectedSubCat = selectedsubCat;
+    this.selectedSubCat = selectedsubCat;
 
     notifyListeners();
   }

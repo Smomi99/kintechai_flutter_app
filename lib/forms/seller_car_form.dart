@@ -27,7 +27,7 @@ class _SellerCarFormState extends State<SellerCarForm> {
   var _kmController = TextEditingController();
   var _noOfOwnerController = TextEditingController();
   var _titleController = TextEditingController();
-  var _descriptionController = TextEditingController();
+  var _descController = TextEditingController();
 
   validate(CategoryProvider provider) {
     if (_formKey.currentState!.validate()) {
@@ -43,9 +43,10 @@ class _SellerCarFormState extends State<SellerCarForm> {
           'kmDrive': _kmController.text,
           'noOfOwners': _noOfOwnerController.text,
           'title': _titleController.text,
-          'description': _descriptionController.text,
+          'description': _descController.text,
           'sellerUid': _service.user?.uid,
-          'images': provider.urlList
+          'images': provider.urlList,
+          'postedAt': DateTime.now().microsecondsSinceEpoch,
         });
 
         print(provider.dataToFirestore);
@@ -118,10 +119,9 @@ class _SellerCarFormState extends State<SellerCarForm> {
         _titleController.text = _catProvider.dataToFirestore['title'];
       }
       if (_catProvider.dataToFirestore.isEmpty) {
-        _descriptionController.text == null;
+        _descController.text == null;
       } else {
-        _descriptionController.text =
-            _catProvider.dataToFirestore['description'];
+        _descController.text = _catProvider.dataToFirestore['description'];
       }
     });
 
@@ -381,7 +381,7 @@ class _SellerCarFormState extends State<SellerCarForm> {
                   ),
                   TextFormField(
                     autofocus: false,
-                    controller: _descriptionController,
+                    controller: _descController,
                     keyboardType: TextInputType.text,
                     maxLength: 4000,
                     minLines: 1,
@@ -404,25 +404,7 @@ class _SellerCarFormState extends State<SellerCarForm> {
                   Divider(
                     color: Colors.grey,
                   ),
-                  // TextFormField(
-                  //   enabled: false,
-                  //   minLines: 2,
-                  //   maxLines: 4,
-                  //   controller: _addressController,
-                  //   decoration: InputDecoration(
-                  //     labelText: 'Address*',
-                  //     counterText: 'Seller Address',
-                  //   ),
-                  //   validator: (value) {
-                  //     if (value!.isEmpty) {
-                  //       return 'Please completed the required file';
-                  //     }
-                  //     return null;
-                  //   },
-                  // ),
-                  // Divider(
-                  //   color: Colors.grey,
-                  // ),
+                  
                   Container(
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
