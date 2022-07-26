@@ -381,7 +381,7 @@ packages:
     source: hosted
     version: "2.5.0"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.dartlang.org"
@@ -401,6 +401,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
+  like_button:
+    dependency: "direct main"
+    description:
+      name: like_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.4"
   lint:
     dependency: transitive
     description:
@@ -556,7 +563,7 @@ packages:
     source: hosted
     version: "4.4.0"
   photo_view:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: photo_view
       url: "https://pub.dartlang.org"

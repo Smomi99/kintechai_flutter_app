@@ -4,12 +4,15 @@ import 'package:phoneotp/forms/forms_screen.dart';
 import 'package:phoneotp/forms/seller_car_form.dart';
 import 'package:phoneotp/forms/user_review_screen.dart';
 import 'package:phoneotp/provider/cat_provider.dart';
+import 'package:phoneotp/provider/product_provider.dart';
 import 'package:phoneotp/screens/categories/category_list.dart';
 import 'package:phoneotp/screens/categories/subcat_screen.dart';
 import 'package:phoneotp/screens/location_screen.dart';
 import 'package:phoneotp/screens/login_screen.dart';
 import 'package:phoneotp/screens/main_screen.dart';
 import 'package:phoneotp/screens/phone_auth_screen.dart';
+import 'package:phoneotp/screens/product_details_screen.dart';
+import 'package:phoneotp/screens/sellitems/product_by_category_screen.dart';
 import 'package:phoneotp/screens/sellitems/seller_category_list.dart';
 import 'package:phoneotp/screens/sellitems/seller_subcat.dart';
 import 'package:phoneotp/screens/splash_screen.dart';
@@ -20,7 +23,10 @@ void main() async {
   await Firebase.initializeApp();
   Provider.debugCheckInvalidValueType = null;
   runApp(MultiProvider(
-    providers: [Provider(create: (_) => CategoryProvider())],
+    providers: [
+      Provider(create: (_) => CategoryProvider()),
+      Provider(create: (_) => ProductProvider()),
+    ],
     child: const MyApp(),
   ));
 }
@@ -41,9 +47,7 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (context) => SplashScreen(),
         LoginScreen.id: (context) => LoginScreen(),
         PhoneAuthScreen.id: (context) => PhoneAuthScreen(),
-        LocationScreen.id: (context) => LocationScreen(
-              popScreen: MainScreen.id,
-            ),
+        LocationScreen.id: (context) => LocationScreen(),
         MainScreen.id: (context) => MainScreen(),
         CategoryListScreen.id: (context) => CategoryListScreen(),
         SubCatList.id: (context) => SubCatList(),
@@ -52,6 +56,8 @@ class MyApp extends StatelessWidget {
         SellerCarForm.id: (context) => SellerCarForm(),
         UserReviewScreen.id: (context) => UserReviewScreen(),
         FormScreen.id: (context) => FormScreen(),
+        ProductDetailsScreen.id: (context) => ProductDetailsScreen(),
+        ProductByCategory.id: (context) => ProductByCategory(),
       },
     );
   }
@@ -82,4 +88,3 @@ class MyApp extends StatelessWidget {
 //         }
 //       },
 //     );
-

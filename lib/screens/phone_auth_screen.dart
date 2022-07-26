@@ -16,7 +16,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
   bool validate = false;
   var countryCodeController = TextEditingController(text: '+88');
   var phoneNumberController = TextEditingController();
-  
+
   showAlertDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: Row(children: [

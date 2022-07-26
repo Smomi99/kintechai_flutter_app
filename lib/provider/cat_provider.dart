@@ -51,6 +51,12 @@ class CategoryProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  clearSelectedCat() {
+    this.selectedCategory = null;
+    this.selectedSubCat = null;
+    notifyListeners();
+  }
+
   // void getImage() {
   //   this.urlList.add(url);
   //   notifyListeners();

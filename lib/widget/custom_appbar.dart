@@ -45,42 +45,72 @@ class CustomAppBar extends StatelessWidget {
       backgroundColor: Colors.white,
       elevation: 0.0,
       automaticallyImplyLeading: false,
-      title: InkWell(
-        onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (BuildContext context) => LocationScreen(
-                        popScreen: MainScreen.id,
-                      )));
-        },
+      // title: InkWell(
+      //   onTap: () {
+      //     Navigator.push(
+      //         context,
+      //         MaterialPageRoute(
+      //             builder: (BuildContext context) => LocationScreen()));
+      //   },
+      //   child: Container(
+      //     width: MediaQuery.of(context).size.width,
+      //     child: Padding(
+      //       padding: const EdgeInsets.only(top: 8, bottom: 8),
+      //       child: Row(
+      //         mainAxisAlignment: MainAxisAlignment.start,
+      //         children: [
+      //           Icon(
+      //             CupertinoIcons.location_solid,
+      //             color: Colors.black,
+      //             size: 18,
+      //           ),
+      //           Flexible(
+      //             child: Text(
+      //               address,
+      //               style: TextStyle(
+      //                 color: Colors.black,
+      //                 fontSize: 12,
+      //                 fontWeight: FontWeight.bold,
+      //               ),
+      //             ),
+      //           ),
+      //           Icon(
+      //             Icons.keyboard_arrow_down_outlined,
+      //             color: Colors.black,
+      //             size: 18,
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
+      bottom: PreferredSize(
+        preferredSize: Size.fromHeight(56),
         child: Container(
-          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 8),
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(
-                  CupertinoIcons.location_solid,
-                  color: Colors.black,
-                  size: 18,
-                ),
-                Flexible(
-                  child: Text(
-                    address,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                Expanded(
+                  child: SizedBox(
+                    height: 40,
+                    child: TextField(
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
+                          ),
+                          labelText: 'Find Cars, Mobiles and many more...',
+                          labelStyle: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                          contentPadding: EdgeInsets.only(left: 10, right: 10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          )),
                     ),
                   ),
                 ),
-                Icon(
-                  Icons.keyboard_arrow_down_outlined,
-                  color: Colors.black,
-                  size: 18,
-                ),
+                Icon(Icons.notifications_none),
               ],
             ),
           ),

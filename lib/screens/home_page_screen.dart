@@ -1,9 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:phoneotp/provider/cat_provider.dart';
+import 'package:phoneotp/screens/product_list.dart';
 
 import 'package:phoneotp/widget/banner_widget.dart';
 import 'package:phoneotp/widget/category_widget.dart';
 import 'package:phoneotp/widget/custom_appbar.dart';
+import 'package:provider/provider.dart';
 
 class HomePageScreen extends StatefulWidget {
   static const String id = 'home-page-screen';
@@ -17,58 +19,44 @@ class HomePageScreen extends StatefulWidget {
 class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
+    var _catProvider = Provider.of<CategoryProvider>(context);
+    _catProvider.clearSelectedCat();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      backgroundColor: Colors.grey.shade100,
+      // resizeToAvoidBottomInset: false,
       appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(56),
+        preferredSize: Size.fromHeight(60),
         child: SafeArea(
           child: CustomAppBar(),
         ),
       ),
-      body: ListView(
-        children: [
-          Container(
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      height: 40,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.search,
-                            ),
-                            labelText: 'Find Cars, Mobiles and many more...',
-                            labelStyle: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold),
-                            contentPadding:
-                                EdgeInsets.only(left: 10, right: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            )),
-                      ),
-                    ),
-                  ),
-                  Icon(Icons.notifications_none),
-                ],
+      body: SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+                child: Column(
+                  children: [
+                    //banner
+                    BannerWidget(),
+                    //categories
+                    CategoryWidget(),
+                  ],
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-            child: Column(
-              children: [
-                //banner
-                BannerWidget(),
-                //categories
-                CategoryWidget(),
-              ],
+            SizedBox(
+              height: 10,
             ),
-          )
-        ],
+            ProductList(
+              proScreen: false,
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:phoneotp/provider/cat_provider.dart';
 import 'package:phoneotp/screens/categories/subcat_screen.dart';
+import 'package:phoneotp/screens/sellitems/product_by_category_screen.dart';
 import 'package:phoneotp/screens/services/firebase_services.dart';
+import 'package:provider/provider.dart';
 
 class CategoryListScreen extends StatelessWidget {
   const CategoryListScreen({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class CategoryListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     FirebaseService _service = FirebaseService();
+    var _catProvider = Provider.of<CategoryProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -48,11 +52,16 @@ class CategoryListScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
                       onTap: () {
-                        if (doc!['subCat'] == null) {
-                          return print('no sub cat');
+                        _catProvider.getCategory(doc!['catName']);
+                        _catProvider.getCatSnapshot(doc);
+                        if (doc['subCat'] == null) {
+                          _catProvider.getSubCategory(null);
+
+                          Navigator.pushNamed(context, ProductByCategory.id);
+                        } else {
+                          Navigator.pushNamed(context, SubCatList.id,
+                              arguments: doc);
                         }
-                        Navigator.pushNamed(context, SubCatList.id,
-                            arguments: doc);
                       },
                       leading: Image.network(
                         doc!['image'],

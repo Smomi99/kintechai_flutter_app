@@ -13,9 +13,9 @@ import 'package:phoneotp/screens/services/firebase_services.dart';
 
 class LocationScreen extends StatefulWidget {
   static const String id = 'location-screen';
-  final String popScreen;
+  String? popScreen;
   // ignore: use_key_in_widget_constructors
-  const LocationScreen({required this.popScreen});
+  LocationScreen({this.popScreen});
 
   @override
   State<LocationScreen> createState() => _LocationScreenState();
